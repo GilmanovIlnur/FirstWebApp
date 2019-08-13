@@ -11,9 +11,15 @@
         </li>
     </ui>
 </@n.nav>
+
 <form action="/profile/users/${user.id}" method="post">
-    <input type="text" name="name" placeholder="Новое имя">
-    <input type="text" name="lastName" placeholder="Новая Фамилия">
+    <#if isAdmin??>
+        <#list roles as role>
+            <label><input type="checkbox" value="${role}" name="roles" ${user.roles?seq_contains(role)?string("checked", "")}>${role}</label>
+        </#list>
+    </#if>
+    <input type="text" name="name" placeholder="Новое имя" value="${user.name}">
+    <input type="text" name="lastName" placeholder="Новая Фамилия" value="${user.lastName}">
     <input type="submit" value="Сохранить">
 </form>
 
