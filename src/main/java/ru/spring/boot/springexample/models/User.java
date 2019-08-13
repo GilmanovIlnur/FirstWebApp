@@ -40,6 +40,10 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
+    public boolean isAdmin(){
+        return roles.contains(Role.ADMIN);
+    }
+
 
 
 }
