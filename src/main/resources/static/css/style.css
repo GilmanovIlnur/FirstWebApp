@@ -1,0 +1,23 @@
+body{
+    background-image: url("http://oboi.cc/uploads/11_05_2013/view/201210/oboik.ru_58130.jpg");
+
+}
+input{
+    border: 2px solid blue;
+    padding: 12px 20px 12px 40px;
+    text-align: left;
+}
+.field{
+    clear:both;
+    text-align: right;
+}
+
+label {
+    color: aqua;
+    font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+    float: left;
+;
+}
+.container{
+    float: left;
+}
