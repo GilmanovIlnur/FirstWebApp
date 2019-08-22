@@ -4,7 +4,7 @@
 <@c.page>
     <style>
         input{
-            border: 2px solid blue;
+            border: 2px solid coral;
             padding: 12px 20px 12px 40px;
             text-align: left;
             border-radius: 30px;
@@ -16,7 +16,7 @@
         }
 
         label {
-            color: aqua;
+            color: #ff7c2b;
             font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
             float: left;
         ;
@@ -24,6 +24,8 @@
         .container{
             background-color: #FBFBFB;
             float: left;
+            padding-left: 500px;
+            padding-top: 100px;
 
 
         }

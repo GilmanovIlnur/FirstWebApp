@@ -54,6 +54,7 @@
             color: #ff7c2b;
         }
         #block{
+            box-shadow: 0 0 2px 1px darkgray;
             margin-top: 10px;
             font-family: 'Poppins', sans-serif;
             width: 50%;
@@ -66,9 +67,25 @@
             margin-left: 50px;
         }
         div.block2{
+            box-shadow: 0 0 2px 1px darkgray;
             width: 50%;
             height: 500px;
             float: left;
+        }
+        .subs{
+            padding-top: 5px;
+            text-align: center;
+            float: left;
+            width: 50%;
+            height: 50px;
+        }
+        .block3{
+            width: 100%;
+            height: 100px;
+
+        }
+        .log-img{
+            padding: 15px;
         }
 
     </style>
@@ -87,23 +104,35 @@
 </@n.nav>
     <div id="block">
         <div class="block2">
-            <ui>
-                <li>
-                    <a href="/profile">Моя Страница</a>
-                </li>
-                <li>
-                    <a href="/profile/users/${user.id}">Редактировать профиль</a>
-                </li>
+            <div class="block3">
+                <ui>
+                    <li>
+                        <a href="/profile">Моя Страница</a>
+                    </li>
+                    <li>
+                        <a href="/profile/users/${user.id}">Редактировать профиль</a>
+                    </li>
                 <#if isAdmin>
                     <li>
                         <a href="/profile/users">Список пользователей</a>
                     </li>
                 </#if>
-            </ui>
+                </ui>
+            </div>
+
         </div>
         <div class="block2">
-            Скоро будет возможность загрузить карточку пользователя. Разработчики
-            работают над этим.
+            <div class="subs">
+                <strong>Подписчики: ${subscribers?size}</strong>
+            </div>
+            <div class="subs">
+                <strong>Подписки: ${subscriptions?size}</strong>
+            </div>
+            <div class="log-img">
+                Скоро будет возможность загрузить карточку пользователя. Разработчики
+                работают над этим.
+            </div>
+
         </div>
     </div>
 
@@ -132,7 +161,7 @@
                         </td>
                         <td>${message.text}</td>
                         <td>
-                            <form method="post" action="/delete/${message.getId()} ">
+                            <form method="post" action="/delete/${message.id} ">
                                 <input type="submit" value="X" >
                             </form>
                         </td>
@@ -145,7 +174,7 @@
                 Список сообщений пуст.
             </div>
         </#if>
-    </div>
         </div>
+    </div>
 
 </@c.page>

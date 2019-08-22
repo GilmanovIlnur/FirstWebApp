@@ -43,12 +43,13 @@
     <h5>Страница изменения пароля.</h5>
 </div>
 <div>
-    <#if messageFromServer1??>
-        <div class="message">Не совпадает старый пароль.</div>
+    <#if condition?has_content>
+        <h2>
+            ${condition}
+        </h2>
     </#if>
-    <#if messageFromServer2??>
-        <div class="message">Новые пароли не совпадают.</div>
-    </#if>
+
+
 </div>
 <div class="form">
     <form method="post" action="/profile/changePassword/${user.id}">
