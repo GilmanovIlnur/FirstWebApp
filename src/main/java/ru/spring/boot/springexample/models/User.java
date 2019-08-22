@@ -1,11 +1,11 @@
 package ru.spring.boot.springexample.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -40,10 +40,40 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_subscribers",
+            joinColumns = {@JoinColumn(name ="channel_id")},
+            inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
+    )
+    private Set<User> subscribers = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_subscribers",
+            joinColumns = {@JoinColumn(name="subscriber_id")},
+            inverseJoinColumns = {@JoinColumn(name = "channel_id")}
+    )
+    private Set<User> subscriptions = new HashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "author" ,  fetch = FetchType.EAGER)
+    private Set<Message> messages;
+
     public boolean isAdmin(){
         return roles.contains(Role.ADMIN);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
 
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
