@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.spring.boot.springexample.Service.ProfileService;
+import ru.spring.boot.springexample.models.User;
+import ru.spring.boot.springexample.security.details.UserDetailsImpl;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ProfileController {
@@ -16,15 +20,19 @@ public class ProfileController {
     ProfileService profileService;
 
     @GetMapping("/profile")
-    public String getProfilePage(Authentication authentication, ModelMap model){
+    public String getProfilePage(Authentication authentication, ModelMap model,
+                                 HttpServletRequest httpServletRequest){
+
         if (authentication == null){
             return "redirect:/login";
         }
+        UserDetailsImpl details = (UserDetailsImpl)authentication.getPrincipal();
+        Long userId = details.getId();
         model.addAttribute("isAdmin", profileService.isAdmin(authentication));
-        model.addAttribute("messages", profileService.getMessages(authentication));
-        model.addAttribute("subscriptions",profileService.getUser(authentication).getSubscriptions());
-        model.addAttribute("subscribers",profileService.getUser(authentication).getSubscribers());
-        model.addAttribute("user", profileService.getUser(authentication));
+        model.addAttribute("messages", profileService.getMessages(details.getUser()));
+        model.addAttribute("subscriptions",profileService.getUser(userId).getSubscriptions());
+        model.addAttribute("subscribers",profileService.getUser(userId).getSubscribers());
+        model.addAttribute("user", profileService.getUser(userId));
         return "profile";
 
     }
@@ -35,7 +43,7 @@ public class ProfileController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteMessage(@PathVariable Long id,Authentication authentication){
+    public String deleteMessage(@PathVariable Long id){
         profileService.delete(id);
         return "redirect:/profile";
     }
@@ -43,8 +51,36 @@ public class ProfileController {
 
 
     @GetMapping("/profile/users")
-    public String getUsers(ModelMap modelMap){
+    public String getUsers(ModelMap modelMap, Authentication authentication){
         modelMap.addAttribute("users", profileService.getUsers());
+        boolean isAdmin = profileService.isAdmin(authentication);
+        modelMap.addAttribute("currentUser",profileService.getUser(authentication));
+        if (isAdmin) {
+            modelMap.addAttribute("admin", true);
+        }
         return "users";
     }
+
+    @GetMapping("/{type}/{id}")
+    public String getSubscrbrs(@PathVariable String type,
+                               @PathVariable("id") User user,
+                               ModelMap modelMap,
+                               Authentication authentication){
+        UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
+        modelMap.addAttribute("currentUser", details.getUser());
+        modelMap.addAttribute("subs",
+                profileService.getSubs(type, user));
+        switch (type) {
+            case "subscriptions" :{
+                modelMap.addAttribute("type", "Подписки");
+                break;
+            }
+            case "subscribers" :{
+                modelMap.addAttribute("type", "Подписчики");
+                break;
+            }
+        }
+        return "subs";
+    }
+
 }

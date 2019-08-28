@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.spring.boot.springexample.forms.EditForm;
 import ru.spring.boot.springexample.forms.PasswordEditForm;
 import ru.spring.boot.springexample.models.Role;
@@ -23,10 +21,11 @@ public class EditService {
     UserRepo userRepo;
 
     public void edit(User user, EditForm editForm, Set<Role> roles){
-
         user.setName(editForm.getName());
         user.setLastName(editForm.getLastName());
-        user.setRoles(roles);
+        if (roles != null){
+            user.setRoles(roles);
+        }
         userRepo.save(user);
     }
 

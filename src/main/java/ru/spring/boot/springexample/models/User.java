@@ -1,6 +1,8 @@
 package ru.spring.boot.springexample.models;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -17,7 +19,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "login")
@@ -40,6 +42,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_subscribers",
             joinColumns = {@JoinColumn(name ="channel_id")},
@@ -47,7 +50,9 @@ public class User {
     )
     private Set<User> subscribers = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "user_subscribers",
             joinColumns = {@JoinColumn(name="subscriber_id")},
             inverseJoinColumns = {@JoinColumn(name = "channel_id")}

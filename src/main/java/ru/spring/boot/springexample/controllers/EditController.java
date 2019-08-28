@@ -43,7 +43,7 @@ public class EditController {
     @PostMapping("/profile/users/{id}")
     public String edit(@PathVariable("id") User user,
                        EditForm editForm,
-                       @RequestParam Set<Role> roles){
+                       @RequestParam(required = false) Set<Role> roles){
         editService.edit(user,editForm,roles);
 
         return "redirect:/profile/users";

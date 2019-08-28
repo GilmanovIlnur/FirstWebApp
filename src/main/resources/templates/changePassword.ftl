@@ -10,6 +10,7 @@
             <a href="/logout">Выйти<a>
         </li>
     </ui>
+
     </@n.nav>
 
 <style>
@@ -49,17 +50,20 @@
         </h2>
     </#if>
 
-
-</div>
-<div class="form">
     <form method="post" action="/profile/changePassword/${user.id}">
-        <input type="password" name="oldPassword" placeholder="Старый пароль">
-        <br>
-        <input name="newPassword" type="password" placeholder="Новый пароль!">
-        <br>
-        <input type="password" name="repeatedNewPassword" placeholder="Повторите пароль">
-        <br>
-        <input type="submit" value="Изменить">
+        <div class="form-group">
+            <label for="formGroupExampleInput">Старый пароль</label>
+            <input name="oldPassword" type="password" class="form-control" id="formGroupExampleInput" placeholder="Старый пароль">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Новый пароль</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Новый пароль">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Повторите пароль</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Повторите пароль">
+        </div>
+        <button type="submit" class="btn btn-primary">Изменить</button>
     </form>
 </div>
 

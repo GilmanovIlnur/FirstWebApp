@@ -14,9 +14,15 @@ public class SubscribeService {
         presentUser.getSubscriptions().add(subsUser);
         userRepo.save(presentUser);
 
+
     }
 
     public void unSubscribe(User presentUser, User unSubsUser){
+        System.out.println(presentUser.getSubscriptions().size());
         presentUser.getSubscriptions().remove(unSubsUser);
+        userRepo.save(presentUser);
+        System.out.println(presentUser.getSubscriptions().size());
+        System.out.println(presentUser.getSubscribers().size());
+
     }
 }

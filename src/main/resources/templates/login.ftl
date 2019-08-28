@@ -4,34 +4,8 @@
 <@c.page>
     <style>
 
-        label {
-            color: #ff7c2b;
-            font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
-            float: left;
-        }
-        .container{
-            margin-top: 50px;
-            font-family: 'Poppins', sans-serif;
-            margin-left: 40%;
-            align-items: center;
-            float: left;
-            text-align: center;
 
-        }
-        .main {
-            letter-spacing: 3px;
-            margin: 0px;
-            width: 100%;
-            height: border-box;
-            color: black;
-            font-family: 'Poppins', sans-serif;
-            font-size: 20px;
-        }
-        a{
-            font-size: 20px;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 3px;
-        }
+
     </style>
 <@n.nav>
     <ui class="links">

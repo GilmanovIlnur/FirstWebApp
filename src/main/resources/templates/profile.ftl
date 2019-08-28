@@ -87,6 +87,10 @@
         .log-img{
             padding: 15px;
         }
+        td{
+            padding: 10px;
+            box-shadow: 0 0 5px darkgray;
+        }
 
     </style>
 <@n.nav>
@@ -112,21 +116,19 @@
                     <li>
                         <a href="/profile/users/${user.id}">Редактировать профиль</a>
                     </li>
-                <#if isAdmin>
                     <li>
                         <a href="/profile/users">Список пользователей</a>
                     </li>
-                </#if>
                 </ui>
             </div>
 
         </div>
         <div class="block2">
             <div class="subs">
-                <strong>Подписчики: ${subscribers?size}</strong>
+                <a href="/subscribers/${user.id}"><strong>Подписчики: ${subscribers?size}</strong></a>
             </div>
             <div class="subs">
-                <strong>Подписки: ${subscriptions?size}</strong>
+                <a href="/subscriptions/${user.id}"><strong>Подписки: ${subscriptions?size}</strong></a>
             </div>
             <div class="log-img">
                 Скоро будет возможность загрузить карточку пользователя. Разработчики
@@ -144,7 +146,7 @@
         </form>
         <#if (messages)?size != 0>
             <div>
-                <table id="users">
+                <table id="messages">
                     <tr>
                         <th>TIME</th>
                         <th>Text</th>

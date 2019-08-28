@@ -13,10 +13,7 @@ import ru.spring.boot.springexample.repositories.UserRepo;
 import ru.spring.boot.springexample.security.details.UserDetailsImpl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ProfileService {
@@ -52,13 +49,31 @@ public class ProfileService {
         return roles.contains(Role.ADMIN);
     }
 
-    public List<Message> getMessages(Authentication authentication){
-        UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
-        return messageRepo.findAllByAuthor(details.getUser());
+    public List<Message> getMessages(User user){
+        return messageRepo.findAllByAuthor(user);
     }
 
-    public User getUser(Authentication authentication){
+    public User getUser(Long id){
+        User user = userRepo.findById(id).orElseThrow(IllegalArgumentException::new);
+        return user;
+    }
+    public User getUser(Authentication authentication) {
         UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
         return details.getUser();
+    }
+
+    public Set<User> getSubs(String type, User user) {
+        Set<User> subs = new HashSet<>();
+        switch (type) {
+            case "subscribers": {
+                subs = user.getSubscribers();
+                break;
+            }
+            case "subscriptions": {
+                subs =  user.getSubscriptions();
+                break;
+            }
+        }
+        return subs;
     }
 }

@@ -50,9 +50,12 @@
     li.welcome{
         color: #ff7c2b;
     }
-
-
 </style>
+
+
+
+
+
       <nav>
           <div class="logo">
               <img src="http://www.tsatu.edu.ua/nauka/wp-content/uploads/sites/49/1466703414.png" alt="">
